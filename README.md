@@ -1,66 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Система складского учета (Warehouse Management System)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Описание системы
+Данная система представляет собой комплексное решение для управления складским учетом, включающее в себя следующие возможности:
+- Управление материалами и их категориями
+- Учет партий товаров
+- Контроль складских запасов
+- Управление поставщиками и клиентами
+- Обработка продаж и возвратов
+- Фотофиксация приходов с распознаванием ИИ
 
-## About Laravel
+## Структура базы данных
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Основные справочники
+1. **Пользователи (users)**
+   - Управление пользователями системы
+   - Аутентификация и авторизация
+   - Отслеживание действий пользователей
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+2. **Склады (warehouses)**
+   - Учет различных складских помещений
+   - Хранение информации о местоположении
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+3. **Категории (categories)**
+   - Классификация материалов
+   - Организация иерархии товаров
 
-## Learning Laravel
+4. **Единицы измерения (units)**
+   - Справочник единиц измерения
+   - Поддержка полного и краткого наименования
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Контрагенты
+1. **Поставщики (suppliers)**
+   - Учет поставщиков
+   - Хранение контактной информации
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. **Клиенты (clients)**
+   - База данных клиентов
+   - Контактные данные и адреса доставки
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Учет материалов
+1. **Материалы (materials)**
+   - Основной справочник материалов
+   - Связь с категориями и единицами измерения
+   - Описание характеристик
 
-## Laravel Sponsors
+2. **Партии (batches)**
+   - Учет партий материалов
+   - Отслеживание сроков годности
+   - Серийные номера и номера партий
+   - Контроль статуса (активна/просрочена/повреждена)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Складские операции
+1. **Приход на склад (warehouse_arrivals)**
+   - Регистрация поступлений
+   - Контроль количества
+   - Статусы обработки (ожидание/принято/отклонено)
+   - Фотофиксация с ИИ-распознаванием
 
-### Premium Partners
+2. **Складские запасы (warehouse_stock)**
+   - Актуальные остатки по складам
+   - Привязка к конкретным партиям
+   - Отслеживание движения материалов
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Продажи и возвраты
+1. **Продажи (sales)**
+   - Оформление продаж клиентам
+   - Статусы выполнения
+   - Привязка к складу отгрузки
 
-## Contributing
+2. **Детали продаж (sales_details)**
+   - Состав продажи
+   - Цены и количества
+   - Связь с конкретными партиями
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **Возвраты (returns)**
+   - Обработка возвратов от клиентов
+   - Причины возврата
+   - Количество возвращаемого товара
 
-## Code of Conduct
+### Фотофиксация
+1. **Фотографии прихода (warehouse_arrival_photos)**
+   - Хранение фотографий при приеме товара
+   - Распознавание содержимого через ИИ
+   - Описание и метаданные фотографий
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Особенности системы
+- Поддержка мягкого удаления (soft delete) для всех сущностей
+- Автоматическая фиксация времени создания записей
+- Каскадное удаление связанных данных
+- Интеграция с ИИ для распознавания товаров по фотографиям
+- Детальное логирование всех операций
 
-## Security Vulnerabilities
+## Требования
+- PHP 8.0+
+- Laravel Framework
+- MySQL/PostgreSQL
+- Поддержка обработки изображений
+- Интеграция с API искусственного интеллекта
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Установка
+1. Клонировать репозиторий
+2. Установить зависимости: `composer install`
+3. Настроить подключение к БД в `.env`
+4. Выполнить миграции: `php artisan migrate`
+5. Настроить права доступа к папке для загрузки фотографий
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Безопасность
+- Все операции требуют аутентификации
+- Разграничение прав доступа по ролям
+- Безопасное хранение файлов
+- Валидация всех входных данных
